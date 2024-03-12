@@ -1,13 +1,20 @@
 <template>
     <div>
-        <h1>Home Page</h1>
+        <headerMovies/>
+    </div>
+    <div>
+        <bannerMovies/>
+        <ItemMovies/>
+    </div>
+    <div>
+        <footerMovies/>
     </div>
 </template>
 
 <script setup>
-
+import headerMovies from '@/component/headerMovies.vue';
+import footerMovies from '@/component/footerMovies.vue';
+import bannerMovies from '@/component/bannerMovies.vue';
+import ItemMovies from '@/component/ItemMovies.vue';
 </script>
 
-<style lang="scss" scoped>
-
-</style>

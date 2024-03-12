@@ -6,12 +6,12 @@
     2: ListFilmComponent (trong list film se co FilmItemComponent)
     3: IntroduceComponent
 -->
-    <bannerMovies />
-    <ItemMovies />
+    <BannerComponent />
+    <ListFilmComponent />
   </div>
 </template>
 
 <script setup>
-import bannerMovies from "@/components/bannerMovies.vue";
-import ItemMovies from "@/components/ItemMovies.vue";
+import BannerComponent from "@/components/BannerComponent.vue";
+import ListFilmComponent from "@/components/ListFilmComponent.vue";
 </script>

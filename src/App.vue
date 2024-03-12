@@ -1,13 +1,13 @@
 <script setup>
   import { RouterView } from "vue-router";
-  import headerMovies from '@/components/headerMovies.vue';
-  import footerMovies from '@/components/footerMovies.vue';
+  import HeaderComponent from '@/components/HeaderComponent.vue';
+  import FooterComponent from '@/components/FooterComponent.vue';
 
 </script>
 
 <template>
-  <headerMovies />
+  <HeaderComponent />
   <RouterView />
   
-  <footerMovies />
+  <FooterComponent />
 </template>

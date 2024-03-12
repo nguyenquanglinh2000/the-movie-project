@@ -1,8 +1,8 @@
 <template>
   <div>
-    <NewItemMovies />
+    <NewMoviesComponent />
   </div>
 </template>
 <script setup>
-import NewItemMovies from "@/components/NewItemMovies.vue";
+import NewMoviesComponent from "@/components/NewMoviesComponent.vue";
 </script>

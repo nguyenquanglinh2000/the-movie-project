@@ -1,8 +1,8 @@
 <template>
   <div>
-    <AllMovies />
+    <MoviesComponent />
   </div>
 </template>
 <script setup>
-import AllMovies from "@/components/AllMovies.vue";
+import MoviesComponent from '@/components/MoviesComponent.vue';
 </script>

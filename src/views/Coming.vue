@@ -1,15 +1,6 @@
 <template>
-    <div>
-
-        <div>
-            <Coming/>
-
-        </div>
-
-
-    </div>
+  <Coming />
 </template>
 <script setup>
-import Coming from '@/component/Coming.vue';
-
+import Coming from "@/components/Coming.vue";
 </script>

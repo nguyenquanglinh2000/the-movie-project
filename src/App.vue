@@ -1,7 +1,7 @@
 <script setup>
   import { RouterView } from "vue-router";
-  import headerMovies from '@/component/headerMovies.vue';
-  import footerMovies from '@/component/footerMovies.vue';
+  import headerMovies from '@/components/headerMovies.vue';
+  import footerMovies from '@/components/footerMovies.vue';
 
 </script>
 

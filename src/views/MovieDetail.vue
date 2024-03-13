@@ -1,41 +1,55 @@
+<script setup>
+import useMoviesStore from "@/store/storeMovies";
+import { onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
+
+const useMovie = useMoviesStore();
+const route = useRoute();
+const movie = ref();
+
+onMounted(async () => {
+  try {
+    const idMovie = route.params.id;
+    movie.value = await useMovie.fetchMoviesDetail(idMovie);
+  } catch (error) {
+    console.log(error);
+  }
+});
+</script>
+
 <template>
-  <div>
-    <div class="containerDetail">
-      <div class="left">
-        <img
-          src="../asset/image/pexels-anjana-c-674010.jpg"
-          alt="movie.name"
-          style="width: 100%"
-        />
-      </div>
-      <div class="right">
-        <h3>Test Layout</h3>
-        <p><strong>Thời gian :</strong> 120 Min</p>
-        <p><strong>Đạo diễn:</strong> Tran Anh Hung</p>
-        <p>
-          <strong>Diễn viên:</strong> Benoît Magimel, Juliette Binoche, Patrick
-          d'Assumçao, Emmanuel Salingerr
-        </p>
-        <p>
-          <strong>Nội dung:</strong>
-          <br />
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
-        </p>
+  <div class="containerDetail" v-if="movie">
+    <div class="left">
+      <img
+        :src="`/src/asset/image/${movie.avatar}.jpg`"
+        :alt="movie.name"
+        style="width: 100%"
+      />
+    </div>
+    <div class="right">
+      <h3>{{ movie.name }}</h3>
+      <p><strong>Thời gian :</strong>{{ movie.time }}</p>
+      <p><strong>Đạo diễn:</strong> Tran Anh Hung</p>
+      <p>
+        <strong>Diễn viên:</strong> Benoît Magimel, Juliette Binoche, Patrick
+        d'Assumçao, Emmanuel Salingerr
+      </p>
+      <p>
+        <strong>Nội dung:</strong>
+        <br />
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat.
+      </p>
 
-        <div></div>
+      <div></div>
 
-        <button>Xem Phim</button>
-      </div>
+      <button>Xem Phim</button>
     </div>
   </div>
 </template>
 <style>
-
-
-
 .containerDetail {
   display: flex;
   justify-content: space-between;
@@ -45,7 +59,7 @@
 .left {
   width: 35%;
 }
-.right{
+.right {
   width: 60%;
 }
 
@@ -57,7 +71,7 @@ h3 {
 h5,
 p,
 small {
-  color: #837D7C;
+  color: #837d7c;
 }
 
 h4 {
@@ -72,9 +86,6 @@ h5 {
   font-size: 15px;
 }
 
-
-
-
 .add label {
   padding: 10px 30px 0 20px;
   border-radius: 50px;
@@ -86,20 +97,21 @@ button {
   padding: 10px;
   border: none;
   outline: none;
-  background:red;
+  background: red;
   color: white;
   margin-top: 20%;
   border-radius: 30px;
 }
 
-@media only screen and (max-width:768px) {
+@media only screen and (max-width: 768px) {
   .containerDetail {
     max-width: 90%;
     margin: auto;
     height: auto;
   }
 
-  .left, .right {
+  .left,
+  .right {
     width: 100%;
   }
 
@@ -108,14 +120,15 @@ button {
   }
 }
 
-@media only screen and (max-width:511px) {
+@media only screen and (max-width: 511px) {
   .container {
     max-width: 100%;
     height: auto;
     padding: 10px;
   }
 
-  .left, .right {
+  .left,
+  .right {
     padding: 0;
   }
 
@@ -130,4 +143,3 @@ button {
   }
 }
 </style>
-

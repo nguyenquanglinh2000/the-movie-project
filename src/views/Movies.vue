@@ -1,8 +1,25 @@
 <template>
-  <div>
-    <MoviesComponent />
+  <div class="movies" id="movies">
+    <h2 class="heading">Opening This Week</h2>
+
+    <div class="movies-container">
+      <div v-for="movie in movies" :key="movie.id">
+        
+        <MoviesComponent :movie="movie" />
+      </div>
+    </div>
   </div>
 </template>
 <script setup>
-import MoviesComponent from '@/components/MoviesComponent.vue';
+import MoviesComponent from "@/components/MoviesComponent.vue";
+import useMoviesStore from "../store/storeMovies";
+import { computed, onMounted } from "vue";
+
+const movieStore = useMoviesStore();
+
+const movies = computed(() => movieStore.getMovies);
+
+onMounted(async () => {
+  await movieStore.fetchMovies();
+});
 </script>

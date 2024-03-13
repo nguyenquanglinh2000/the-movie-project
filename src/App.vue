@@ -7,7 +7,6 @@
 
 <template>
   <HeaderComponent />
-  <RouterView />
-  
+  <RouterView /> 
   <FooterComponent />
 </template>

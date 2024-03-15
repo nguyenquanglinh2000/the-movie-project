@@ -1,32 +1,30 @@
 import axios from "axios";
 import { defineStore } from "pinia";
-const api = "http://localhost:3000/movies"
+import { getApiMovies,getMovieDetail } from "@/services/apiMovies";
 
-export const  useMoviesStore = defineStore('movies',{
-    state:()=>({
-        Movies:[]
-    }),
-    getters:{
-        getMovies(state){
-            return state.Movies
-        }
+export const useMoviesStore = defineStore("movies", {
+  state: () => ({
+    movies: [],
+  }),
+  getters: {
+    getMovies(state) {
+      return state.movies;
     },
-    actions:{
-        async fetchMovies(){
-            const res = await axios.get(api)
-            this.Movies = res.data
-        },
-        async fetchMoviesDetail(id){
-            const res = await axios.get(`${api}/${id}`)
-            this.Movies = res.data
-
-        }
-
-    }
-    
-
-})
-export default useMoviesStore
-
-
-
+  },
+  actions: {
+    async fetchMovies() {
+      const movies = await getApiMovies();
+      this.$patch((state) => {
+        state.movies = movies;
+      });
+    },
+    async fetchMoviesDetail(id) {
+      const movie = await getMovieDetail(id);
+      this.$patch((state) => {
+        state.movies = movie;
+      });
+      console.log(movie);
+    },
+  },
+});
+export default useMoviesStore;

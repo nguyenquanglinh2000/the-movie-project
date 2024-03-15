@@ -1,16 +1,17 @@
 <template>
+<router-link :to="{ name: 'MovieDetail', params: { id: movie.id } }">
   <div class="box">
-    <router-link :to="{name:'MovieDetail' , params:{id:movie.id}}">
-      <img
-        :src="`/src/asset/image/${movie.avatar}.jpg`"
-        :alt="movie.name"
-        style="width: 100%;"
+    <img
+      :src="`${movie.image}`"
+      :alt="movie.name"
+      style="width: 100%;"
+    />
   
-      />
-      <h3>{{ movie.name }}</h3>
-      <span>{{ movie.time }} | Action</span>
-    </router-link>
+    <h3>{{ movie.title }}</h3>
+    <span>{{ movie.rating }} | {{ movie.imdbid }}</span>
   </div>
+</router-link>
+
 </template>
 
 <script setup>
@@ -20,6 +21,7 @@ defineProps({
   movie: {
     type: Object,
     required: true,
+    
   },
 });
 </script>

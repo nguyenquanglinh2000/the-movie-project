@@ -19,6 +19,7 @@ const movieStore = useMoviesStore();
 
 const movies = computed(() => movieStore.getMovies);
 
+
 onMounted(async () => {
   await movieStore.fetchMovies();
 });

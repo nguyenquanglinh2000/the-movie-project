@@ -198,6 +198,7 @@ section{
     transition: 0.2s all linear;
 }
 .box h3{
+    margin-top: 10px;
     font-size: 0.9rem;
     font-weight: 500;
 }
@@ -227,6 +228,9 @@ section{
 .coming-container-item .box{
     margin: 0 5px;
     
+}
+.iframe{
+    margin-top: 100px;
 }
 
 /* newsletter  */

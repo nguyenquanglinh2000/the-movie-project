@@ -13,7 +13,7 @@
 <script setup>
 import MoviesComponent from "@/components/MoviesComponent.vue";
 import useMoviesStore from "../store/storeMovies";
-import { computed, onMounted } from "vue";
+import { computed, onMounted , ref} from "vue";
 
 const movieStore = useMoviesStore();
 

@@ -9,6 +9,8 @@
     
       <h3>{{ movie.title }}</h3>
       <span>{{ movie.rating }} | {{ movie.imdbid }}</span>
+   
+
     </div>
   </router-link>
   

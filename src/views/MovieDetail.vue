@@ -1,5 +1,5 @@
 <script setup>
-import {useMoviesStore} from "@/store/storeMovies";
+import { useMoviesStore } from "@/store/storeMovies";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 
@@ -7,17 +7,45 @@ const useMovie = useMoviesStore();
 const route = useRoute();
 const movie = ref();
 
+const commentsMovie = ref();
+
 let watchMovies = ref(false);
 
-const watchMoviePlay = () => {
+const watchMoviePlay = async () => {
   watchMovies.value = true;
+
+};
+const getValueComments = ref('')
+
+const createComment = async () => {
+  try {
+
+    if (!getValueComments.value.trim()) return;
+
+    const newComment = {
+      text: getValueComments.value,
+      movieID: movie.value.id
+    };
+
+    // Gọi hàm tạo comment từ store và truyền vào dữ liệu comment mới
+    await useMovie.createComment(newComment);
+
+    // Cập nhật danh sách comment sau khi tạo thành công
+    commentsMovie.value = await useMovie.commentsbyMovieId(movie.value.id);
+
+    getValueComments.value = '';
+  } catch (error) {
+    console.error('Error creating comment:', error);
+  }
 };
 
 onMounted(async () => {
   try {
+    //movie
     const idMovie = route.params.id;
     movie.value = await useMovie.fetchMoviesDetail(idMovie);
-
+    //comments
+    commentsMovie.value = await useMovie.commentsbyMovieId(idMovie);
   } catch (error) {
     console.log(error);
   }
@@ -26,20 +54,18 @@ onMounted(async () => {
 
 <template>
   <div v-if="movie">
-    
     <div class="containerDetail" v-if="!watchMovies">
       <div class="left">
         <img
-          :src="`${movie.big_image}`"
+          :src="`${movie.image}`"
           :alt="movie.name"
-          style="width: 100%"
         />
       </div>
       <div class="right">
         <h3>{{ movie.title }}</h3>
         <p><strong>Thời gian :</strong> {{ movie.time }}</p>
         <p><strong>Đạo diễn:</strong> Tran Anh Hung</p>
-        <p><strong>Thể loại:</strong> {{ movie.genre }}</p>
+        <p><strong>Thể loại:</strong> {{ movie.genre.join(", ") }}</p>
         <p><strong>Đánh giá:</strong> {{ movie.rating }}</p>
         <p><strong>Năm sản xuất</strong> {{ movie.year }}</p>
         <p><strong>Mã bộ phim :</strong> {{ movie.imdbid }}</p>
@@ -52,7 +78,7 @@ onMounted(async () => {
         <button @click="watchMoviePlay">Xem Phim</button>
       </div>
     </div>
-    <div v-else>
+    <div v-else class="watch-Movie">
       <iframe
         width="100%"
         height="514px"
@@ -62,6 +88,20 @@ onMounted(async () => {
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen
       ></iframe>
+      <div class="comments-movie">
+        <form class="mb-3" @submit.prevent="createComment()">
+          <input type="text" v-model="getValueComments" class="form-control p-4"/>
+        </form>
+
+        <h3>Các bình luận:</h3>
+        <ul>
+          <li v-for="comment in commentsMovie" :key="comment.id">
+            <p>
+              <strong>{{ comment.text }}</strong>
+            </p>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -71,7 +111,18 @@ onMounted(async () => {
   justify-content: space-between;
   margin: 50px 100px;
 }
-
+.watch-Movie {
+  margin: 0 100px;
+}
+.watch-Movie form {
+  margin-bottom: 50px;
+}
+.comments-movie {
+  margin-top: 100px;
+}
+.comments-movie input {
+  padding: 25px;
+}
 .left {
   width: 35%;
 }
